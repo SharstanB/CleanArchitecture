@@ -4,6 +4,7 @@ namespace Domain.CoreServices;
 
 public class OperationResult<T> 
 {
+    public OperationResult(){}
     public OperationResult(T result, HttpStatusCode statusCode , string message, Exception? exception)
     {
         Result = result;
