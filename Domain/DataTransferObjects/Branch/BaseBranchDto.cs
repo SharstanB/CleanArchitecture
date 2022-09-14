@@ -1,6 +1,8 @@
+using MediatR;
+
 namespace Domain.DataTransferObjects;
 
-public class BaseBranchDto
+public class BaseBranchDto : IRequest
 {
     public string Name { get; set; }
 

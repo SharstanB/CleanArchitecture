@@ -1,5 +1,4 @@
-using Application.ExtentionMethods;
-using Application.Services;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
@@ -8,12 +7,10 @@ namespace Presentation.Controllers;
 [ApiController]
 public class ProductController : ControllerBase
 {
-     private readonly IProductService _productService;
-     public ProductController(IProductService productService)
+     public ProductController()
      {
-          _productService = productService;
      }
-     [HttpGet]
-     public async Task<IActionResult>  GetAll()
-          =>(await _productService.GetAll()).ToJsonResult();
+     // [HttpGet]
+     // public async Task<IActionResult>  GetAll()
+     //      =>(await _productService.GetAll()).ToJsonResult();
 }

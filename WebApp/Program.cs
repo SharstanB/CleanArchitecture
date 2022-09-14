@@ -1,24 +1,30 @@
-using Application.Services;
+using Application.Handlers;
 using Domain.Interfaces;
 using Infrastructure.DataSource;
 using Infrastructure.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Presentation.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<CompanyDbContext>(option =>
-{
-    option.UseSqlServer(builder.Configuration.GetConnectionString("LinuxDefaultConnection"));
-});
+// builder.Services.AddDbContext<CompanyDbContext>(option =>
+// {
+//     option.UseSqlServer(builder.Configuration.GetConnectionString("LinuxDefaultConnection"));
+// });
+
+builder.Services.AddDbInfrastracture(builder.Configuration);
+
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(CompanyController).Assembly);
 
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddHttpClient();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IBranchService, BranchService>();
+
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+
+builder.Services.AddMediatR(typeof(CompanyHandler));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

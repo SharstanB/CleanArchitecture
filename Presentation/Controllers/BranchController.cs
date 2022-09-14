@@ -1,6 +1,6 @@
 using Application.ExtentionMethods;
-using Application.Services;
 using Domain.DataTransferObjects;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
@@ -10,15 +10,20 @@ namespace Presentation.Controllers;
 public class BranchController : Controller
 {
 
-    private readonly IBranchService _branchService;
-    public BranchController(IBranchService branchService)
+    private readonly IMediator _mediator;
+    public BranchController( IMediator mediator)
     {
-        _branchService = branchService;
+        _mediator = mediator;
     }
     
+    // [HttpGet]
+    // public async Task<IActionResult> GetAll()
+    //     => (await _branchService.GetAllBranches()).ToJsonResult();
+
     [HttpGet]
-    public async Task<IActionResult> GetAll()
-        => (await _branchService.GetAllBranches()).ToJsonResult();
+    public async Task<IActionResult> GetAllBranches()
+        => _mediator.Send(new BaseBranchDto()).ToJsonResult();
+    
     [HttpGet]
     public IActionResult GetById(int id)
     {
@@ -26,5 +31,5 @@ public class BranchController : Controller
     }
     [HttpPost]
     public  IActionResult CreateBranch(CreateBranchDto createBranch)
-        => _branchService.CreateBranch(createBranch).ToJsonResult();
+        => _mediator.Send(createBranch).ToJsonResult();
 }

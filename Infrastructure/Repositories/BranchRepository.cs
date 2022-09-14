@@ -15,12 +15,14 @@ public class BranchRepository : BaseRepository , IBranchRepository
     public Guid Insert(CreateBranchDto createBranch)
     {
        var branch = DbContext.Branches.Add(createBranch.ToEntity());
+       DbContext.SaveChangesAsync();
        return branch.Entity.Id;
     }
 
     public void Update(UpdateBranchDto updateBranch)
     { 
         DbContext.Branches.Update(updateBranch.ToEntity());
+        DbContext.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<BaseBranchDto>> GetAll()

@@ -14,9 +14,17 @@
       <Reference Include="Microsoft.AspNetCore.Mvc.Formatters.Json">
         <HintPath>..\..\..\.nuget\packages\microsoft.aspnetcore.mvc.formatters.json\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Formatters.Json.dll</HintPath>
       </Reference>
+      <Reference Include="Microsoft.EntityFrameworkCore">
+        <HintPath>..\..\..\.nuget\packages\microsoft.entityframeworkcore\6.0.8\lib\net6.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+      </Reference>
       <Reference Include="Newtonsoft.Json">
         <HintPath>..\..\..\.nuget\packages\newtonsoft.json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="10.0.1" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     </ItemGroup>
 
 </Project>
