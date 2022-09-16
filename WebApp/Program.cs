@@ -1,4 +1,3 @@
-using Application.Handlers;
 using Domain.Interfaces;
 using Infrastructure.DataSource;
 using Infrastructure.Repositories;
@@ -13,18 +12,25 @@ var builder = WebApplication.CreateBuilder(args);
 // {
 //     option.UseSqlServer(builder.Configuration.GetConnectionString("LinuxDefaultConnection"));
 // });
+// builder.Services.AddHttpClient();
 
 builder.Services.AddDbInfrastracture(builder.Configuration);
 
 builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+        }
+    )
     .AddApplicationPart(typeof(CompanyController).Assembly);
 
-builder.Services.AddHttpClient();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 
-builder.Services.AddMediatR(typeof(CompanyHandler));
+var assembly = AppDomain.CurrentDomain.Load("Application");
+builder.Services.AddMediatR(assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -41,6 +47,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
  app.MapControllers();
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

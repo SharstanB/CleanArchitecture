@@ -2,11 +2,11 @@ using Infrastructure.DataSource;
 
 namespace Infrastructure;
 
-public class BaseRepository
+public abstract class BaseRepository
 {
     protected CompanyDbContext DbContext { get; set; }
 
-    public BaseRepository(CompanyDbContext dbContext)
+    protected BaseRepository(CompanyDbContext dbContext)
     {
         DbContext = dbContext;
     }

@@ -10,7 +10,7 @@ namespace Application;
 public class GetAllBranchesHandler : IRequestHandler<BranchQueries ,OperationResult<IEnumerable<BaseBranchDto>>>
 {
     private readonly IBranchRepository _branchRepository;
-    public GetAllBranchesHandler(IBranchRepository branchService, IBranchRepository branchRepository)
+    public GetAllBranchesHandler(IBranchRepository branchRepository)
     {
         _branchRepository = branchRepository;
     }

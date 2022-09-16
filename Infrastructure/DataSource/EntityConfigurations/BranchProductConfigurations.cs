@@ -8,6 +8,7 @@ public class BranchProductConfigurations : IEntityTypeConfiguration<BranchProduc
 {
     public void Configure(EntityTypeBuilder<BranchProduct> builder)
     {
+        builder.ToTable(nameof(BranchProduct), a => a.IsTemporal());
         builder.HasOne(c=>c.SourceBranch)
             .WithMany(c=>c.SourceBranchs)
             .HasForeignKey(a => a.SourceBranchId)

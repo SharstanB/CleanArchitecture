@@ -11,7 +11,8 @@ namespace Infrastructure.DataSource;
 public class CompanyDbContext : DbContext , IApplicationDbContext
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
-    public CompanyDbContext(DbContextOptions<CompanyDbContext> options, IHttpContextAccessor httpContextAccessor)
+    public CompanyDbContext(DbContextOptions<CompanyDbContext> options, 
+        IHttpContextAccessor httpContextAccessor)
         : base(options)
     {
         _httpContextAccessor = httpContextAccessor;
@@ -29,6 +30,7 @@ public class CompanyDbContext : DbContext , IApplicationDbContext
                 .GetMethod(nameof(ActualPrice),
                     new[] { typeof(double) }))
             .HasName(nameof(ActualPrice));
+        base.OnModelCreating(builder);
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
